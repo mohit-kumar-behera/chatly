@@ -1,0 +1,24 @@
+.layout-split {
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 4.5fr;
+}
+.layout-split__left,
+.layout-split__right {
+  padding: 1rem 1.5rem;
+  padding-top: 5.2rem;
+}
+.layout-split__left {
+  background-color: var(--color-light);
+}
+.layout-split__right {
+  background-color: var(--color-grey);
+}
+.layout-split__left > .header {
+  display: flex;
+  gap: 1rem;
+  color: var(--color-dark);
+  margin-bottom: 3rem;
+  border-bottom: 2px solid var(--color-primary);
+  padding-bottom: 1rem;
+}

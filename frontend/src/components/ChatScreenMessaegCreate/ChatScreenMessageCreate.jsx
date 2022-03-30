@@ -1,18 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AiOutlineSend } from 'react-icons/ai';
+import io from 'socket.io-client';
 
 import './ChatScreenMessageCreate.css';
 
+const ENDPOINT_URL = 'http://localhost:8000';
+const initialMessageObj = { name: '', message: '' };
+
 const ChatScreenMessageCreate = () => {
-  const [message, setMessage] = useState('');
+  const [messageObj, setMessageObj] = useState(initialMessageObj);
+  const [chats, setChats] = useState([]);
+
+  const socketRef = useRef();
+
+  useEffect(() => {
+    socketRef.current = io.connect(ENDPOINT_URL);
+    socketRef.current.on('message', ({ name, message }) => {
+      setChats([...chats, { name, message }]);
+    });
+
+    return () => socketRef.current.disconnect();
+  }, [chats]);
 
   const sendMessageHandler = e => {
     e.preventDefault();
 
-    if (message === '') return alert('Message Field is empty');
+    if (messageObj.message === '') return alert('Message Field is empty');
+
+    const { name, message } = messageObj;
+    socketRef.current.emit('message', { name, message });
+
+    // console.log(messageObj);
 
     // After successfully sending the message
-    setMessage('');
+    setMessageObj(initialMessageObj);
   };
 
   return (
@@ -26,8 +47,14 @@ const ChatScreenMessageCreate = () => {
           type="text"
           name="message"
           className="input-message"
-          value={message}
-          onChange={e => setMessage(e.target.value)}
+          value={messageObj.message}
+          onChange={e =>
+            setMessageObj({
+              ...messageObj,
+              message: e.target.value,
+              name: 'Mohit',
+            })
+          }
           placeholder="Write your message"
           spellCheck="false"
         />
@@ -35,6 +62,14 @@ const ChatScreenMessageCreate = () => {
           <AiOutlineSend />
         </button>
       </form>
+      {chats
+        ? chats.map((chat, idx) => (
+            <div key={idx}>
+              <h4>{chat.name}</h4>
+              <h4>{chat.message}</h4>
+            </div>
+          ))
+        : ''}
     </div>
   );
 };

@@ -1,3 +1,6 @@
+.token-container {
+  word-break: break-all;
+}
 .auth-form > *:not(:last-child) {
   margin-bottom: 0.7rem;
 }

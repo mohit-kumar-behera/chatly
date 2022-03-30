@@ -8,6 +8,7 @@ const {
   addUserToActiveBucket,
   removeUser,
   getActiveUsers,
+  getActiveUser,
   getUser,
 } = require('./users');
 
@@ -32,7 +33,7 @@ const server = app.listen(PORT, () => {
 });
 
 const io = require('socket.io')(server, {
-  pingTimeout: 60000,
+  // pingTimeout: 60000,
   cors: {
     origin: 'http://localhost:3000',
   },
@@ -50,15 +51,26 @@ io.on('connection', socket => {
   });
 
   socket.on('login', (token, cb) => {
-    let error;
-    const decode = jwt.verify(token, SECRET_KEY);
+    let error, decode;
+    try {
+      decode = jwt.verify(token, SECRET_KEY);
 
-    if (!decode.mobileNumber) error = { message: 'Something went wrong' };
+      if (!decode.mobileNumber) error = { message: 'Something went wrong' };
 
-    const { name, mobileNumber } = decode;
-    addUserToActiveBucket({ name, mobileNumber });
+      const { name, mobileNumber } = decode;
+      addUserToActiveBucket({ name, mobileNumber });
+    } catch (err) {
+      error = { message: 'Invalid Token' };
+      decode = null;
+    }
 
     cb({ error, decode, token });
+  });
+
+  socket.on('getOpponentUser', (id, cb) => {
+    const mobileNumber = id;
+    const opponentUser = getActiveUser(mobileNumber);
+    cb(opponentUser);
   });
 
   socket.on('activeUsers', cb => {

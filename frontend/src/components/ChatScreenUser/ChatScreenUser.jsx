@@ -3,11 +3,11 @@ import React from 'react';
 import UserCard from '../UserCard/UserCard';
 import './ChatScreenUser.css';
 
-const ChatScreenUser = () => {
+const ChatScreenUser = ({ chatWithUser }) => {
   return (
     <div className="chat-screen__user">
       <div>
-        <UserCard id="1234" name="Mohit Kumar" number="9861013399" />
+        <UserCard name={chatWithUser.name} number={chatWithUser.mobileNumber} />
       </div>
     </div>
   );

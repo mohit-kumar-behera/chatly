@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
 import UserCard from '../../components/UserCard/UserCard';
@@ -7,7 +8,7 @@ import './UserScreen.css';
 
 const ENDPOINT_URL = 'http://localhost:8000';
 
-const UserScreen = () => {
+const UserScreen = ({ loggedInUser }) => {
   const socketRef = useRef();
   const [activeUsers, setActiveUsers] = useState([]);
 
@@ -17,7 +18,6 @@ const UserScreen = () => {
   }, []);
 
   useEffect(() => {
-    console.log('here ', activeUsers);
     socketRef.current.emit('activeUsers', actveUsrs => {
       setActiveUsers(actveUsrs);
     });
@@ -37,7 +37,12 @@ const UserScreen = () => {
           isActive ? 'chat-user-navlink active' : 'chat-user-navlink'
         }
       >
-        <UserCard id="1234" name={user.name} number={user.mobileNumber} />
+        <UserCard
+          id="1234"
+          name={user.name}
+          number={user.mobileNumber}
+          loggedInUser={loggedInUser}
+        />
       </NavLink>
     ));
   };
@@ -50,4 +55,9 @@ const UserScreen = () => {
   );
 };
 
-export default UserScreen;
+const mapStateToProps = state => {
+  const loggedInUser = state.user.user;
+  return { loggedInUser };
+};
+
+export default connect(mapStateToProps)(UserScreen);

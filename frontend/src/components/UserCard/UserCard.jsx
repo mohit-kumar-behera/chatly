@@ -2,9 +2,11 @@ import React from 'react';
 
 import './UserCard.css';
 
-const UserCard = ({ name, number }) => {
+const UserCard = ({ name, number, loggedInUser }) => {
+  const selfTag = loggedInUser?.mobileNumber === number;
+
   return (
-    <div className="user-card">
+    <div className={`user-card ${selfTag ? 'self' : ''}`}>
       <div className="user-pic">
         <div className="img"></div>
       </div>

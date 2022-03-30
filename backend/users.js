@@ -33,6 +33,9 @@ const getUser = mobileNumber =>
 
 const getActiveUsers = () => activeUsers;
 
+const getActiveUser = mobileNumber =>
+  activeUsers.find(user => user.mobileNumber === mobileNumber);
+
 const removeUser = mobileNumber => {
   const idx = users.findIndex(user => user.mobileNumber === mobileNumber);
 
@@ -45,4 +48,5 @@ module.exports = {
   removeUser,
   getUser,
   getActiveUsers,
+  getActiveUser,
 };

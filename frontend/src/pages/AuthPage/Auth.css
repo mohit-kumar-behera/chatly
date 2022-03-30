@@ -50,3 +50,22 @@
   -ms-transform: scale(0.92);
   -o-transform: scale(0.92);
 }
+.page-action-btn-wrapper {
+  display: flex;
+  gap: 1rem;
+}
+.page-action-btn {
+  border: none;
+  cursor: pointer;
+}
+.page-action-btn.cancel {
+  background-color: var(--color-light);
+  color: var(--color-grey-dark);
+}
+.page-action-btn:active {
+  transform: scale(0.95);
+  -webkit-transform: scale(0.95);
+  -moz-transform: scale(0.95);
+  -ms-transform: scale(0.95);
+  -o-transform: scale(0.95);
+}

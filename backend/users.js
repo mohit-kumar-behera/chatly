@@ -42,6 +42,14 @@ const removeUser = mobileNumber => {
   if (idx !== -1) return users.splice(idx, 1)[0];
 };
 
+const removeActiveUser = mobileNumber => {
+  const idx = activeUsers.findIndex(user => user.mobileNumber === mobileNumber);
+
+  if (idx !== -1) return activeUsers.splice(idx, 1)[0];
+
+  return false;
+};
+
 module.exports = {
   addUser,
   addUserToActiveBucket,
@@ -49,4 +57,5 @@ module.exports = {
   getUser,
   getActiveUsers,
   getActiveUser,
+  removeActiveUser,
 };

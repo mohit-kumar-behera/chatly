@@ -5,7 +5,7 @@ import { AiFillHome } from 'react-icons/ai';
 
 import './Navbar.css';
 
-const Navbar = ({ isAuthenticated }) => {
+const Navbar = ({ user, isAuthenticated }) => {
   return (
     <nav className="navbar">
       <div className="navbar__left">
@@ -27,10 +27,12 @@ const Navbar = ({ isAuthenticated }) => {
           </>
         ) : (
           <>
-            <h1 className="auth-name">Hello, Mohit</h1>
-            {/* <Link className="auth-btn" to="/register">
+            <h1 className="auth-name" style={{ alignSelf: 'center' }}>
+              Hello, {user.name.split(' ')[0]}
+            </h1>
+            <Link className="auth-btn" to="/logout">
               Logout
-            </Link> */}
+            </Link>
           </>
         )}
       </div>
@@ -39,8 +41,8 @@ const Navbar = ({ isAuthenticated }) => {
 };
 
 const mapStateToProps = state => {
-  const { isAuthenticated } = state.user;
-  return { isAuthenticated };
+  const { user, isAuthenticated } = state.user;
+  return { user, isAuthenticated };
 };
 
 export default connect(mapStateToProps)(Navbar);

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
@@ -10,6 +10,9 @@ const ENDPOINT_URL = 'http://localhost:8000';
 const Login = function ({ isAuthenticated, userLogin }) {
   const [loginToken, setLoginToken] = useState('');
   const socketRef = useRef();
+  const location = useLocation();
+
+  let from = location.state?.from?.pathname || '/';
 
   useEffect(() => {
     socketRef.current = io.connect(ENDPOINT_URL);
@@ -37,7 +40,7 @@ const Login = function ({ isAuthenticated, userLogin }) {
   };
 
   const renderOrRedirect = () => {
-    if (isAuthenticated) return <Navigate to="/chat" />;
+    if (isAuthenticated) return <Navigate to={from} replace={true} />;
 
     return (
       <div className="page-div">

@@ -27,8 +27,6 @@ const ChatScreen = ({ loggedInUser }) => {
     socketRef.current.emit('getOpponentUser', id, opponentUser => {
       if (!opponentUser) return alert('Something went wrong');
 
-      console.log('Me, ', opponentUser, ' -- ', loggedInUser);
-
       setChatWithUser(opponentUser);
 
       if (loggedInUser) {
@@ -43,12 +41,12 @@ const ChatScreen = ({ loggedInUser }) => {
       }
     });
     return () => socketRef.current.disconnect();
-  }, [id]);
+  }, [id, loggedInUser]);
 
   return (
     <div className="chat-screen-wrapper">
-      <p>sdkjfhidsu gi</p>
-      <ChatScreenUser chatWithUser={loggedInUser} />
+      {/* <p>{room}</p> */}
+      <ChatScreenUser chatWithUser={chatWithUser} />
       <ChatScreenMessageDisplay />
       <ChatScreenMessageCreate />
     </div>

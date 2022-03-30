@@ -9,6 +9,11 @@
   justify-content: space-between;
   align-items: center;
 }
+.navbar__right {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 1rem;
+}
 .home-icon {
   transform: scale(1.6);
   -webkit-transform: scale(1.6);

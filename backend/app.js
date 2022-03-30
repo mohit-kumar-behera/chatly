@@ -10,6 +10,7 @@ const {
   getActiveUsers,
   getActiveUser,
   getUser,
+  removeActiveUser,
 } = require('./users');
 
 app.use(express.json());
@@ -65,6 +66,17 @@ io.on('connection', socket => {
     }
 
     cb({ error, decode, token });
+  });
+
+  socket.on('logout', (mobileNumber, cb) => {
+    let error,
+      success = false;
+    const flag = removeActiveUser(mobileNumber);
+
+    if (!flag) error = { message: 'Something went wrong' };
+    else success = true;
+
+    cb(error, success);
   });
 
   socket.on('getOpponentUser', (id, cb) => {

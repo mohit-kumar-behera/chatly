@@ -6,3 +6,9 @@ export const userLogin = ({ user, token }) => {
     payload: { user, token },
   };
 };
+
+export const userLogout = () => {
+  return {
+    type: actionTypes.LOGOUT,
+  };
+};

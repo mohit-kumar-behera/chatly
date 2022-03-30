@@ -1,4 +1,5 @@
 const users = [];
+const activeUsers = [];
 
 const addUser = ({ name, mobileNumber }) => {
   const existingUser = users.find(user => user.mobileNumber === mobileNumber);
@@ -14,8 +15,23 @@ const addUser = ({ name, mobileNumber }) => {
   return { user };
 };
 
+const addUserToActiveBucket = ({ name, mobileNumber }) => {
+  const existingActiveUser = activeUsers.find(
+    user => user.mobileNumber === mobileNumber
+  );
+
+  if (existingActiveUser) return;
+
+  const user = { name, mobileNumber };
+  activeUsers.push(user);
+
+  return user;
+};
+
 const getUser = mobileNumber =>
   users.find(user => user.mobileNumber === mobileNumber);
+
+const getActiveUsers = () => activeUsers;
 
 const removeUser = mobileNumber => {
   const idx = users.findIndex(user => user.mobileNumber === mobileNumber);
@@ -23,4 +39,10 @@ const removeUser = mobileNumber => {
   if (idx !== -1) return users.splice(idx, 1)[0];
 };
 
-module.exports = { addUser, removeUser, getUser };
+module.exports = {
+  addUser,
+  addUserToActiveBucket,
+  removeUser,
+  getUser,
+  getActiveUsers,
+};

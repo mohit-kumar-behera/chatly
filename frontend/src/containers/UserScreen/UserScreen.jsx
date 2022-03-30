@@ -1,45 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
+import io from 'socket.io-client';
 
 import UserCard from '../../components/UserCard/UserCard';
 import './UserScreen.css';
 
+const ENDPOINT_URL = 'http://localhost:8000';
+
 const UserScreen = () => {
+  const socketRef = useRef();
+  const [activeUsers, setActiveUsers] = useState([]);
+
+  useEffect(() => {
+    socketRef.current = io.connect(ENDPOINT_URL);
+    return () => socketRef.current.disconnect();
+  }, []);
+
+  useEffect(() => {
+    console.log('here ', activeUsers);
+    socketRef.current.emit('activeUsers', actveUsrs => {
+      setActiveUsers(actveUsrs);
+    });
+
+    return () => socketRef.current.disconnect();
+  }, [activeUsers]);
+
+  const buildActiveUsers = function () {
+    if (!activeUsers.length)
+      return <h4>There are no active users currently.</h4>;
+
+    return activeUsers.map(user => (
+      <NavLink
+        key={user.mobileNumber}
+        to={`/chat/${user.mobileNumber}`}
+        className={({ isActive }) =>
+          isActive ? 'chat-user-navlink active' : 'chat-user-navlink'
+        }
+      >
+        <UserCard id="1234" name={user.name} number={user.mobileNumber} />
+      </NavLink>
+    ));
+  };
+
   return (
     <div className="user-screen-div">
       <h3 className="head">Active Users</h3>
-      <NavLink
-        to={`/chat/1234`}
-        className={({ isActive }) =>
-          isActive ? 'chat-user-navlink active' : 'chat-user-navlink'
-        }
-      >
-        <UserCard id="1234" name="Mohit Kumar" number="9861013399" />
-      </NavLink>
-      <NavLink
-        to={`/chat/5678`}
-        className={({ isActive }) =>
-          isActive ? 'chat-user-navlink active' : 'chat-user-navlink'
-        }
-      >
-        <UserCard id="5678" name="Rahul Singh" number="9861013399" />
-      </NavLink>
-      <NavLink
-        to={`/chat/8765`}
-        className={({ isActive }) =>
-          isActive ? 'chat-user-navlink active' : 'chat-user-navlink'
-        }
-      >
-        <UserCard id="8765" name="Karan Vohra" number="9861013399" />
-      </NavLink>
-      <NavLink
-        to={`/chat/4321`}
-        className={({ isActive }) =>
-          isActive ? 'chat-user-navlink active' : 'chat-user-navlink'
-        }
-      >
-        <UserCard id="4321" name="Abdul Bari" number="9861013399" />
-      </NavLink>
+      {buildActiveUsers()}
     </div>
   );
 };

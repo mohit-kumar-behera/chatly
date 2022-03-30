@@ -3,7 +3,13 @@ const cors = require('cors');
 const app = express();
 const jwt = require('jsonwebtoken');
 
-const { addUser, removeUser, getUser } = require('./users');
+const {
+  addUser,
+  addUserToActiveBucket,
+  removeUser,
+  getActiveUsers,
+  getUser,
+} = require('./users');
 
 app.use(express.json());
 app.use(cors());
@@ -49,7 +55,15 @@ io.on('connection', socket => {
 
     if (!decode.mobileNumber) error = { message: 'Something went wrong' };
 
+    const { name, mobileNumber } = decode;
+    addUserToActiveBucket({ name, mobileNumber });
+
     cb({ error, decode, token });
+  });
+
+  socket.on('activeUsers', cb => {
+    const actveUsrs = getActiveUsers();
+    cb(actveUsrs);
   });
 
   socket.on('message', ({ name, message }) => {

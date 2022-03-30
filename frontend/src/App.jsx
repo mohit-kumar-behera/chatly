@@ -5,15 +5,9 @@ import PageLayout from './pages/PageLayout/PageLayout';
 import HomePage from './pages/HomePage/HomePage';
 import LoginPage from './pages/AuthPage/LoginPage';
 import RegisterPage from './pages/AuthPage/RegisterPage';
+import ChatPage from './pages/Chat/ChatPage';
+import ChattingPage from './pages/Chat/ChattingPage';
 import './App.css';
-
-const ChatStartPage = function () {
-  return <h1>Some page 4</h1>;
-};
-
-const ChatPage = function () {
-  return <h1>Some page 5</h1>;
-};
 
 const App = function () {
   return (
@@ -22,8 +16,8 @@ const App = function () {
         <Route index element={<HomePage />} />
         <Route path="register" element={<RegisterPage />} />
         <Route path="login" element={<LoginPage />} />
-        <Route path="chat" element={<ChatStartPage />} />
-        <Route path="chat/:id" element={<ChatPage />} />
+        <Route path="chat" element={<ChatPage />} />
+        <Route path="chat/:id" element={<ChattingPage />} />
       </Route>
     </Routes>
   );

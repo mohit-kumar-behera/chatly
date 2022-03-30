@@ -1,14 +1,17 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 
-import PageLayout from './pages/PageLayout/PageLayout';
-import HomePage from './pages/HomePage/HomePage';
-import LoginPage from './pages/AuthPage/LoginPage';
-import LogoutPage from './pages/AuthPage/LogoutPage';
-import RegisterPage from './pages/AuthPage/RegisterPage';
-import ChatPage from './pages/Chat/ChatPage';
+import {
+  PageLayout,
+  HomePage,
+  LoginPage,
+  LogoutPage,
+  RegisterPage,
+  ChatPage,
+  ChattingPage,
+} from './pages';
+
 import ProtectedRoute from './components/ProtectedRoute';
-import ChattingPage from './pages/Chat/ChattingPage';
 import './App.css';
 
 const App = function () {

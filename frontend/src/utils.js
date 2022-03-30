@@ -1,3 +1,5 @@
+export const ENDPOINT_URL = 'http://localhost:8000';
+
 const LOCAL_STORAGE_KEY_NAME = 'chatlyState';
 
 export const saveToLocalStorage = state => {

@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
-const ENDPOINT_URL = 'http://localhost:8000';
+import { ENDPOINT_URL } from '../utils';
 
 const initialStateRegisterForm = { name: '', mobileNumber: '' };
 const initialStateToken = { user: null, registerToken: null };

@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
 import { userLogin } from '../redux/User/action';
-
-const ENDPOINT_URL = 'http://localhost:8000';
+import { ENDPOINT_URL } from '../utils';
 
 const Login = function ({ isAuthenticated, userLogin }) {
   const [loginToken, setLoginToken] = useState('');

@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import io from 'socket.io-client';
 
 import UserCard from '../../components/UserCard/UserCard';
+import { ENDPOINT_URL } from '../../utils';
 import './UserScreen.css';
-
-const ENDPOINT_URL = 'http://localhost:8000';
 
 const UserScreen = ({ loggedInUser }) => {
   const socketRef = useRef();

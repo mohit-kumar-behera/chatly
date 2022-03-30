@@ -8,8 +8,7 @@ import './ChatScreen.css';
 import ChatScreenUser from '../../components/ChatScreenUser/ChatScreenUser';
 import ChatScreenMessageDisplay from '../../components/ChatScreenMessageDisplay/ChatScreenMessageDisplay';
 import ChatScreenMessageCreate from '../../components/ChatScreenMessaegCreate/ChatScreenMessageCreate';
-
-const ENDPOINT_URL = 'http://localhost:8000';
+import { ENDPOINT_URL } from '../../utils';
 
 const ChatScreen = ({ loggedInUser }) => {
   const { id } = useParams();

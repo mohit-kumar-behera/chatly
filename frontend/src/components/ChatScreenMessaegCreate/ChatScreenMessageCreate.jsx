@@ -3,8 +3,8 @@ import { AiOutlineSend } from 'react-icons/ai';
 import io from 'socket.io-client';
 
 import './ChatScreenMessageCreate.css';
+import { ENDPOINT_URL } from '../../utils';
 
-const ENDPOINT_URL = 'http://localhost:8000';
 const initialMessageObj = { name: '', message: '' };
 
 const ChatScreenMessageCreate = () => {

@@ -30,6 +30,12 @@
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(74, 192, 116, 1) 0%,
+    rgba(33, 151, 139, 1) 74%,
+    rgba(0, 150, 136, 1) 100%
+  );
 }
 .user-detail {
   display: flex;

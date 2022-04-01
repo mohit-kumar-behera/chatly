@@ -6,11 +6,10 @@ const Home = function () {
     <div className="page-div">
       <h2 className="page-head">About Chatly</h2>
       <p className="page-text">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-        commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt
-        in culpa qui officia deserunt mollit anim id est laborum.
+        A chat application makes it easy to communicate with people anywhere in
+        the world by sending and receiving messages in real time. With a chat
+        app, users are able to receive the same engaging and lively interactions
+        through custom messaging features, just as they would in person.
       </p>
       <Link to="chat" className="page-action-btn">
         Start Chatting

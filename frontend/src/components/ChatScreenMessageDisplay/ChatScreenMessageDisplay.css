@@ -18,7 +18,7 @@
   padding: 1rem;
 }
 .message-div {
-  width: 35%;
+  position: relative;
   background-color: var(--color-light);
   color: var(--color-dark);
   padding: 1rem;
@@ -30,7 +30,11 @@
   -o-border-radius: 10px;
 }
 .message-div:not(.myself) {
+  float: left;
+}
+.message-div:not(.myself) {
   clear: right;
+  border-top-left-radius: 0;
 }
 .message-div.myself {
   float: right;
@@ -38,7 +42,37 @@
   color: var(--color-light);
 }
 .message-div.myself {
-  clear: right;
+  clear: both;
+  border-top-right-radius: 0;
+}
+.message-div.myself:after,
+.message-div:not(.myself):after {
+  content: '';
+  position: absolute;
+  top: 0;
+  width: 0;
+  height: 0;
+  --border-width: 8px;
+  border-top: var(--border-width) solid var(--color-primary);
+}
+.message-div.myself:after {
+  right: 0;
+  border-right: var(--border-width) solid transparent;
+  transform: translateX(80%);
+  -webkit-transform: translateX(80%);
+  -moz-transform: translateX(80%);
+  -ms-transform: translateX(80%);
+  -o-transform: translateX(80%);
+}
+.message-div:not(.myself):after {
+  left: 0;
+  border-left: var(--border-width) solid transparent;
+  border-top-color: var(--color-light);
+  transform: translateX(-80%);
+  -webkit-transform: translateX(-80%);
+  -moz-transform: translateX(-80%);
+  -ms-transform: translateX(-80%);
+  -o-transform: translateX(-80%);
 }
 .message-div > p {
   word-spacing: 4px;

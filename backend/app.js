@@ -1,5 +1,4 @@
 const express = require('express');
-const cors = require('cors');
 const app = express();
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
@@ -7,30 +6,23 @@ require('dotenv').config();
 const {
   addUser,
   addUserToActiveBucket,
-  removeUser,
   getActiveUsers,
   getActiveUser,
-  getUser,
   removeActiveUser,
 } = require('./users');
-
-app.use(express.json());
-app.use(cors());
+const { createToken, generateID } = require('./utils');
 
 const PORT = process.env.PORT || 8000;
 
-const createToken = ({ name, mobileNumber }) => {
-  return jwt.sign({ name, mobileNumber }, process.env.SECRET_KEY);
-};
-
-const generateID = () => Math.random().toString(32).slice(2);
+app.get('/', (req, res) => {
+  res.send('Hello, Connected to server for chatly');
+});
 
 const server = app.listen(PORT, () => {
   console.log(`Server listening on PORT ${PORT}`);
 });
 
 const io = require('socket.io')(server, {
-  // pingTimeout: 60000,
   cors: {
     origin: 'http://localhost:3000',
   },
@@ -100,9 +92,7 @@ io.on('connection', socket => {
 
   socket.on('sendMessage', (messageObj, cb) => {
     messageObj.id = generateID();
-    console.log('i m called for ', messageObj.id);
     io.to(messageObj.toRoom).emit('message', messageObj);
-
     cb();
   });
 });

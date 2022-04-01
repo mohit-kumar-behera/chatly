@@ -15,11 +15,6 @@ const Register = function ({ isAuthenticated }) {
 
   useEffect(() => {
     socketRef.current = io.connect(ENDPOINT_URL);
-
-    // socketRef.current.on('registerToken', ({ user, token }) => {
-    //   setToken(prevState => ({ ...prevState, user, token }));
-    // });
-
     return () => socketRef.current.disconnect();
   }, []);
 

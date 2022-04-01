@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import io from 'socket.io-client';
+import { FiRefreshCw } from 'react-icons/fi';
 
 import UserCard from '../../components/UserCard/UserCard';
 import { ENDPOINT_URL } from '../../utils';
@@ -37,7 +38,6 @@ const UserScreen = ({ loggedInUser }) => {
         }
       >
         <UserCard
-          id="1234"
           name={user.name}
           number={user.mobileNumber}
           loggedInUser={loggedInUser}

@@ -23,6 +23,8 @@ const createToken = ({ name, mobileNumber }) => {
   return jwt.sign({ name, mobileNumber }, process.env.SECRET_KEY);
 };
 
+const generateID = () => Math.random().toString(32).slice(2);
+
 const server = app.listen(PORT, () => {
   console.log(`Server listening on PORT ${PORT}`);
 });
@@ -84,7 +86,23 @@ io.on('connection', socket => {
     cb(actveUsrs);
   });
 
-  socket.on('message', ({ name, message }) => {
-    socket.broadcast.emit('message', { name, message });
+  socket.on('joinChat', (room, cb) => {
+    let connectionStatus;
+    try {
+      socket.join(room);
+      connectionStatus = true; // Success
+    } catch (err) {
+      connectionStatus = false; // Fail
+    } finally {
+      cb(connectionStatus);
+    }
+  });
+
+  socket.on('sendMessage', (messageObj, cb) => {
+    messageObj.id = generateID();
+    console.log('i m called for ', messageObj.id);
+    io.to(messageObj.toRoom).emit('message', messageObj);
+
+    cb();
   });
 });

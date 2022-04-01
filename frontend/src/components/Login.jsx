@@ -25,17 +25,23 @@ const Login = function ({ isAuthenticated, userLogin }) {
 
     socketRef.current.emit('login', loginToken, ({ error, decode, token }) => {
       if (error) {
-        alert(error.message);
+        return alert(error.message);
+      }
+
+      // Invalid Token
+      if (!decode || !decode.iat) {
+        return alert('Token is not Valid');
       }
 
       // successfull login
-      if (!decode.iat) {
-        alert('Token is not Valid');
-      }
       const { name, mobileNumber } = decode;
       const user = { name, mobileNumber };
       userLogin({ user, token });
     });
+  };
+
+  const doThis = function (e) {
+    setLoginToken(e.target.innerText);
   };
 
   const renderOrRedirect = () => {
@@ -43,6 +49,19 @@ const Login = function ({ isAuthenticated, userLogin }) {
 
     return (
       <div className="page-div">
+        <div>
+          <ul>
+            <li onClick={doThis}>
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiTW9oaXQgS3VtYXIiLCJtb2JpbGVOdW1iZXIiOiI5ODYxMDEzMzk5IiwiaWF0IjoxNjQ4NjcwMTcyfQ.f0JXG6uWr_udhM36ov5crki-PtPEnJwZoFrpp0R7wUE
+            </li>
+            <li onClick={doThis}>
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQVAgRGhpbGxvbiIsIm1vYmlsZU51bWJlciI6Ijk4NzQ2ODI4NDgiLCJpYXQiOjE2NDg2NzA3NzZ9.5-9tKRixF7zfMt6WUPefZGMu_GBXXJ737OBYgd9wnyM
+            </li>
+            <li onClick={doThis}>
+              eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiS2FyYW4gS3VuYWwiLCJtb2JpbGVOdW1iZXIiOiI4Mzk0ODU5MjkzIiwiaWF0IjoxNjQ4NjcwODIzfQ.XpzagTMyVA3CBLaItc9aITM2iHXBR0PpBPy62mAARYw
+            </li>
+          </ul>
+        </div>
         <h2 className="page-head">Enter Your Token</h2>
         <form
           method="post"

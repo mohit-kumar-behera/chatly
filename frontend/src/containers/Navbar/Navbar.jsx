@@ -6,12 +6,18 @@ import { AiFillHome } from 'react-icons/ai';
 import './Navbar.css';
 
 const Navbar = ({ user, isAuthenticated }) => {
+  const doThis = function () {
+    localStorage.removeItem('chatlyState');
+    window.location.reload();
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar__left">
         <Link to="/">
           <AiFillHome color="#fff" className="home-icon" />
         </Link>
+        <button onClick={doThis}>Clear LS</button>
       </div>
       <div className="navbar__right">
         {' '}

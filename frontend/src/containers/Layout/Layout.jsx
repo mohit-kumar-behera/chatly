@@ -8,7 +8,7 @@ const Layout = ({ title, leftComponent, rightComponent }) => {
     <div className="layout-split">
       <div className="layout-split__left">
         <div className="header">
-          <img src={logo} />
+          <img src={logo} alt="Chatly Logo" />
           <h1>{title}</h1>
         </div>
         {leftComponent ? leftComponent : ''}
